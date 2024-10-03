@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-height, initial-scale=1.0">
+    <title>Heart Button Example</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://via.placeholder.com/800'); /* Temporary placeholder */
+            background-size: cover; 
+            background-position: center;
+            background-color: #282c34; /* Fallback color */
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+            position: relative;
+            transition: background-image 0.5s;
+        }
+
+        .heart-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 60px;
+            color: gray;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .heart-button:hover {
+            transform: scale(1.1);
+        }
+
+        .liked {
+            color: red;
+            animation: light-up 0.6s forwards;
+        }
+
+        @keyframes light-up {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 0, 0, 0.5),
+                             0 0 10px rgba(255, 0, 0, 0.4),
+                             0 0 15px rgba(255, 0, 0, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(255, 0, 0, 0.6),
+                             0 0 30px rgba(255, 0, 0, 0.5),
+                             0 0 40px rgba(255, 0, 0, 0.4);
+            }
+        }
+
+        .moving {
+            animation: moveToTop 1s forwards;
+        }
+
+        @keyframes moveToTop {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-calc(100vh - 100px));
+                position: absolute;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        .content {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .shadow-box {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .next-button {
+            margin-top: px;
+            margin-bottom: 60px;
+            padding: 15px 30px;
+            font-size: 24px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .next-button:hover {
+            background-color: #45a049;
+        }
+
+        .options {
+            display: none;
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .option-button {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #2196F3;
+            color: white;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 10px rgba(33, 150, 243, 0.8);
+            position: relative;
+            z-index: 2;
+        }
+
+        .option-button:hover {
+            box-shadow: 0 0 30px rgba(33, 150, 243, 1), 0 0 15px rgba(33, 150, 243, 0.5);
+            transform: scale(1.05);
+        }
+
+        h2 {
+            font-size: 48px;
+            margin-bottom: 10px; 
+            color: white; 
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        p {
+            font-size: 24px; 
+            margin: 10px 0; 
+            color: white; 
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .option-content {
+            display: none;
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .confirmation {
+            display: none;
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .boba-image {
+            display: none; 
+            margin: 20px auto; 
+            max-width: 80%; 
+            height: auto; 
+        }
+
+        .reveal-button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 24px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #FFC107;
+            color: black;
+            transition: background-color 0.3s;
+        }
+
+        .reveal-button:hover {
+            background-color: #FFB300;
+        }
+
+        .boba-message {
+            display: none; 
+            margin-top: 10px;
+            font-size: 24px;
+            color: white;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+
+    <button class="heart-button" id="heartButton">&#10084;&#65039;</button>
+    <div class="click-me" id="clickMeText">Click Me!</div>
+
+    <div class="content" id="content">
+        <div class="shadow-box">
+            <h2>Ari's words.</h2>
+            <p>I am sorry for laughing at your pain. That's not what quite happened, but it hurt you so I'm sorry. I understand why you reacted the way you did and I really want to just put it aside. Not in an ignorant way, but a way that means we're still us. Just me and you. I am sorry for saying all the things I don't remember saying (it's 4:00 so it's hard to remember rn) and I am sorry for not giving you the break you asked for. The reason behind that is a "break" to me is like a whole ass break up. I don't know if you meant it that way, but usually a break leads up to that. I was worried so I wanted to fix our argument so badly which is why I kept spamming you up. I know that by the time you see this you'll probably laugh your ass off because of the mug, but I hope WE'RE okay.</p>
+            <p2>I have tried to apologise for my actions. Maybe I justified a bit, but please see my efforts. Again. I am sorry. It came out wrong.</p2>
+            <p3>Okay, this is like 3 days after I wrote that top part. I just thought it was a little outdated. I'm gonna keep it in here tho you usually like to see ALL MY ATTEMPTS.
+                Anyways.. I was wrong. I am sorry. Basically, I realised that this wasn't about us arguing or me laughing at me for forgetting. If I read things right, this is about you thinking I'd laugh if you got injured. Which I might have accidently said. I'm sorry I didn't realise this sooner. I do have an explanation, but I feel like it would be better to just not say it now.
+            </p3>
+            <p4>I would never laugh at you for being in serious pain, okay? I accidently said it, because I was upset. I feel like I take everything as a joke and people tell me 24/7 that I have to grow up and that my personality doesnt fit. So, when you started saying that aswell (okay you didnt say that, but it felt like it. I don't know. you just triggered that part of me.)</p4>
+            <p5>Let's be honest. If you passed out infront of me, we both know I'd panic at first. I would be half worried for you and half worried because I wouldn't know what to do. Then maybe I would call one of your friends or the ambulance. Whilst wating I would lay you on my lap and start talking to you. I'm not sure if you would hear me, but I know that it would calm me down and perhaps you would be safer like that?   BUT LETS BE HONEST IM TOO SHY FOR THAT.</p5>
+            <p6>But I would definitely worry. Inside me atleast. I'm a very calm person. So I don't actually worry that much. The feeling is there, I just remain calm. Like remember when we met? You said something like "He seems so calm about this" so yea. Maybe I would giggle abit or try to remain positive, but that doesn't mean I'm not worried for you. It just means that I'm trying not to worry too much because that would hurt.</p6>
+            <p7>So if you died or anything like that. You don't think I would be sad for ages? You don't think I would spam up Harlo and Lia saying how wmuch I miss you? You don't think I would write in my dumb venting channel all the time?    You're not a joke to me. You're someone I love. You're someone I like talking to someone who makes me laugh and makes me happy.    I admit. I sometimes treat you like you don't matter to me or that you're just for fun. And I guess sometimes I feel that way too which makes me feel guilty, but when its needed. I will be there. Everytime you vent, everytime you text me, everytime anything happens. I'm there.    I am horrible at being there, but I am still there answering you because I want to be there. I want to be with you.   I even feel bad when I can't help you because I really want to be someone you can rely on.   Okay this is getting stupid. you get the idea! I am flustered shhhhh hshshshs.</p7>
+            <p8>But yea, point is. I am sorry for making you out to be a joke. (grammar must have fell off but I dont wanna fix it.)  And honestly more importantly. I am sorry for arguing and not respecting your space and blaming you and yelling at you and all that. Once I read your side I realised what you felt. Even though I've forgotten half of the things you wrote.. </p8>
+            <p9>shhh. You understand atleast.   I don't think this is the type of apology you want, but this is the truth atleast.</p9>
+            <p10>You know I love you and only you and if something happened to you I wouldn't be too happy. Anyways I think you're tired of reading this. So I'll make it quick</p10>
+            <p11>I love you, do you love me? Are you willing to never give up no matter what happens? Are you willing to comunicate with me and make sure we bith are okay in this, EVEN when I am bad at comunicating.</p11>
+        
+            </div>
+        <button class="next-button" id="nextButton">Next</button>
+    </div>
+
+    <div class="options" id="options">
+        <p>Are we still together?</p>
+        <div class="shadow-box">
+            <button class="option-button" id="yesButton">Yes</button>
+            <button class="option-button" id="maybeButton">Maybe</button>
+            <button class="option-button" id="noButton">No</button>
+        </div>
+    </div>
+
+    <div class="confirmation" id="confirmation">
+        <p>Are you sure about that?</p>
+        <button class="option-button" id="confirmYes">Yes</button>
+        <button class="option-button" id="confirmNo">No</button>
+    </div>
+
+    <div class="option-content" id="option1">
+        <div class="shadow-box">
+            <h2>Yayayayayayayaay</h2>
+            <p>I love you too and don't worry. I'll always forgive you for whatever you ever do. I'm always here. So don't worry if we ever argue, I love you even if we're not together.</p>
+            <p>Here! Have some boba. You deserve it!</p>
+            <button class="reveal-button" id="revealBobaButton">Reveal Boba</button>
+            <img class="boba-image" src="./pictures/Boba.png" alt="Boba">
+            <p class="boba-message">Mmmmm Of course mango flavour. I know you love mango ones</p>
+        </div>
+    </div>
+
+    <div class="option-content" id="option2">
+        <div class="shadow-box">
+            <h2>Okay.</h2>
+            <p>See, I'd love to argue and all, but I don't want to get in your way. If you truly want this then I guess it's okay. I trust you as it is and love you enough to accept it.</p>
+        </div>
+    </div>
+
+    <div class="option-content" id="option3">
+        <div class="shadow-box">
+            <h2>Is that a good maybe or a bad one?</h2>
+            <p>Honestly. You need to pick a side soon. You can't keep having one foot in and the other one out. It's unfair towards me.</p>
+        </div>
+    </div>
+
+    <script>
+        const heartButton = document.getElementById('heartButton');
+        const clickMeText = document.getElementById('clickMeText');
+        const content = document.getElementById('content');
+        const options = document.getElementById('options');
+        const confirmation = document.getElementById('confirmation');
+        const body = document.body;
+        const nextButton = document.getElementById('nextButton');
+        const bobaImage = document.querySelector('.boba-image');
+        const yesButton = document.getElementById('yesButton');
+        const maybeButton = document.getElementById('maybeButton');
+        const noButton = document.getElementById('noButton');
+        const confirmYes = document.getElementById('confirmYes');
+        const confirmNo = document.getElementById('confirmNo');
+        const bobaMessage = document.querySelector('.boba-message');
+        const revealBobaButton = document.getElementById('revealBobaButton');
+
+        let lastOptionSelected = null; // Track the last option selected
+
+        heartButton.addEventListener('click', function() {
+            heartButton.classList.add('liked');
+            clickMeText.style.display = 'none';
+
+            // Change background image when heart is clicked
+            body.style.backgroundImage = "url('./pictures/Vape.png')"; // Change this to your local image file name
+
+            // Add move animation
+            heartButton.classList.add('moving');
+
+            // Show content after a delay
+            setTimeout(() => {
+                content.style.display = 'block';
+            }, 1000);
+        });
+
+        nextButton.addEventListener('click', function() {
+            content.style.display = 'none';
+            options.style.display = 'block';
+        });
+
+        yesButton.addEventListener('click', function() {
+            options.style.display = 'none';
+            document.getElementById('option1').style.display = 'block';
+            bobaImage.style.display = 'none'; // Initially hide boba image
+            bobaMessage.style.display = 'none'; // Initially hide boba message
+            lastOptionSelected = 'yes'; // Track the last option selected
+        });
+
+        maybeButton.addEventListener('click', function() {
+            options.style.display = 'none';
+            confirmation.style.display = 'block'; // Show confirmation for Maybe
+            lastOptionSelected = 'maybe'; // Track the last option selected
+        });
+
+        noButton.addEventListener('click', function() {
+            options.style.display = 'none';
+            confirmation.style.display = 'block'; // Show confirmation for No
+            lastOptionSelected = 'no'; // Track the last option selected
+        });
+
+        confirmYes.addEventListener('click', function() {
+            confirmation.style.display = 'none';
+            if (lastOptionSelected === 'maybe') {
+                // For "Maybe" option, show option 3
+                document.getElementById('option3').style.display = 'block'; 
+            } else if (lastOptionSelected === 'no') {
+                // For "No" option, show option 2
+                document.getElementById('option2').style.display = 'block'; 
+            }
+        });
+
+        confirmNo.addEventListener('click', function() {
+            confirmation.style.display = 'none';
+            // Reset back to options if the user says No to confirmation
+            options.style.display = 'block';
+        });
+
+        revealBobaButton.addEventListener('click', function() {
+            bobaImage.style.display = 'block'; // Show boba image
+            bobaMessage.style.display = 'block'; // Show boba message
+        });
+    </script>
+
+</body>
+</html>

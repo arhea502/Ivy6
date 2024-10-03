@@ -1,0 +1,35 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto; /* Change from 100vh to auto */
+    background-image: url('https://via.placeholder.com/800');
+    background-size: cover; 
+    background-position: center;
+    background-color: #282c34;
+    font-family: 'Roboto', sans-serif;
+    overflow-y: auto; /* Allow vertical scrolling */
+    position: relative;
+    transition: background-image 0.5s;
+    padding: 20px; /* Add padding for better layout */
+}
+
+.content {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+    z-index: 2;
+    position: relative;
+    max-height: 80vh; /* Set max-height for scrollability */
+    overflow-y: auto; /* Allow scrolling within the content */
+}
+
+.p, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11 {
+    font-size: 24px;
+    margin: 15px 0; /* Increased margin for more space */
+    color: white;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+    line-height: 1.5; /* Increased line height for better readability */
+}
